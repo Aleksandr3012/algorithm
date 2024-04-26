@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Алгоритм</title>
+</head>
+<body>
+
+<input type="text" placeholder="1">
+<input type="text" placeholder="1">
+<input type="text" placeholder="1">
+<br>
+<input type="text" placeholder="result">
+
+<script>
+	// Функція для обчислення середнього значення масиву
+	function calculateMean(values) {
+		const total = values.reduce((acc, val) => acc + val, 0);
+		return total / values.length;
+	}
+
+	// Функція для обчислення стандартної невизначеності з урахуванням сум квадратів відхилень
+	function calculateStandardUncertainty(values, sumOfSquares) {
+		const variance = sumOfSquares / (values.length - 1);
+		return Math.sqrt(variance / values.length);
+	}
+
+	// Функція для перевірки на нормальний закон розподілу
+	function checkNormalDistribution(values) {
+		const mean = calculateMean(values);
+		const deviations = values.map(value => (value - mean) ** 2);
+		const sumOfSquares = deviations.reduce((acc, val) => acc + val, 0);
+		const s = Math.sqrt(sumOfSquares / (values.length - 1));
+
+		// Критерій для нормального розподілу (прикладний)
+		const normality = s / mean;
+		return normality < 0.1; // Прикладний поріг
+	}
+
+	// Демонстрація використання функцій
+	const observations = [915, 922.1667, 921.6667, 921.3611, 915, 921.6667, 915.3611];
+	const sumOfSquares = observations.reduce((acc, value) => {
+		const mean = calculateMean(observations);
+		return acc + (value - mean) ** 2;
+	}, 0);
+
+	const mean = calculateMean(observations);
+	const standardUncertainty = calculateStandardUncertainty(observations, sumOfSquares);
+	const isNormal = checkNormalDistribution(observations);
+
+	console.log("Нормальний закон розподілу:", isNormal ? "Так" : "Ні");
+	console.log("Середнє значення:", mean);
+	console.log("Стандартна невизначеність:", standardUncertainty);
+
+
+</script>
+</body>
+</html>
