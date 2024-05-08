@@ -6,52 +6,8 @@
 	<script src="script.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body style="height: 100dvh;display: grid;place-items: center">
 <h1>Алгоритм</h1>
-
-<body>
-<div style="width:600px;">
-	<canvas id="uncertaintyChart"></canvas>
-</div>
-<script>
-	const ctx = document.getElementById('uncertaintyChart').getContext('2d');
-	const uncertaintyChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: [1, 2, 3, 4, 5, 6, 7], // Час або номер спостереження
-			datasets: [{
-				label: 'Температура',
-				data: [21, 23, 25, 22, 20, 21, 24], // Дані температури
-				borderColor: 'red',
-				backgroundColor: 'rgba(255, 99, 132, 0.2)',
-				yAxisID: 'y'
-			}]
-		},
-		options: {
-			scales: {
-				y: {
-					beginAtZero: false,
-					title: {
-						display: true,
-						text: 'Температура (°C)'
-					}
-				}
-			},
-			plugins: {
-				tooltip: {
-					callbacks: {
-						label: function(context) {
-							const label = context.dataset.label || '';
-							const value = context.parsed.y;
-							const uncertainty = 1.2; // Приклад значення невизначеності
-							return `${label}: ${value} °C ± ${uncertainty} °C`;
-						}
-					}
-				}
-			}
-		}
-	});
-</script>
 </body>
 </body>
 </html>

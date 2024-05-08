@@ -53,11 +53,6 @@ function standardUncertaintyTypeB(min, max) {
 	return (width / Math.sqrt(12));
 }
 
-function standardUncertaintyTypeB(min, max) {
-	const width = max - min;
-	return (width / Math.sqrt(12));
-}
-
 // Інтеграція функцій та тестування
 // Тестові масиви із кроку 1
 const array11 = [10, 20, 30, 40, 50];
@@ -138,6 +133,7 @@ const noCorrelations = [
 
 const totalUncertaintyUncorrelated = combinedUncertainty(noCorrelations, uncertainties);
 const expandedUncUncorrelated = expandedUncertainty(totalUncertaintyUncorrelated, coverageFactor1);
+const totalUncertainty = {source: 'Сумарна невизначеність', value: totalUncertainty1};
 
 const expandedUnc = expandedUncertainty(totalUncertainty, coverageFactor1);
 console.log(`Розширена невизначеність для корельованих даних: ${expandedUnc}`);
@@ -168,13 +164,12 @@ function generateUncertaintyBudget(uncertainties, expandedUncertainties) {
 	console.log("Бюджет невизначеності:");
 	console.log("Джерело невизначеності, Стандартна невизначеність, Розширена невизначеність");
 	uncertainties.forEach((u, index) => {
-		console.log(`${u.source}: ${u.value.toFixed(3)}, ${expandedUncertainties[index].toFixed(3)}`);
+		console.log(`${u.source}: ${u.value.toFixed(3)}, ${expandedUncertainties[index].value.toFixed(3)}`);
 	});
 }
 
 // Визначення коефіцієнту охоплення для різних рівнів довіри
 const coverageFactor = 2; // Коефіцієнт для 95% довіри
-const totalUncertainty = {source: 'Сумарна невизначеність', value: totalUncertainty};
 const expandedUncertainty1 = {source: 'Розширена невизначеність', value: expandedUncertainty(totalUncertainty.value, coverageFactor)};
 
 generateUncertaintyBudget([totalUncertainty], [expandedUncertainty1]);
